@@ -162,8 +162,9 @@ void deleteStudent(Student students[], int studentAdder)
             {
                 students[j] = students[j + 1];
             }
-            studentAdder--;
             cout << "Student has been deleted in the program";
+            studentAdder--;
+            break;
         }
     }
 
@@ -184,7 +185,8 @@ void viewStudent (Student students[], int studentAdder)
     else
     {
         int choose;
-
+    do
+    {
         cout << "How would you like to view the list of students?\n";
         cout << "1. Alphabetically\n";
         cout << "2. GPA\n";
@@ -192,83 +194,85 @@ void viewStudent (Student students[], int studentAdder)
         cout << "Enter Choice: ";
         cin >> choose;
 
-        switch (choose)
-        {
-        case 1:
+            switch (choose)
             {
-                if(studentAdder == 0)
+            case 1:
                 {
-                    cout << "there are no students in the program recently.";
-                }
-                else
-                {
-
-                }
-                cout << "Viewing the List of Students Alphabetically";
-
-                for (int i = 0; i < studentAdder - 1; i++)
-                {
-                    for(int j = 0; j < studentAdder - i - 1; j++)
+                    if(studentAdder == 0)
                     {
-                        if (students[j].lastName > students[j + 1].lastName)
+                        cout << "there are no students in the program recently.";
+                    }
+                    else
+                    {
+
+                    }
+                    cout << "Viewing the List of Students Alphabetically";
+
+                    for (int i = 0; i < studentAdder - 1; i++)
+                    {
+                        for(int j = 0; j < studentAdder - i - 1; j++)
                         {
-                            Student temp = students[j];
-                            students[j] = students[j + 1];
-                            students[j + 1] = temp;
+                            if (students[j].lastName > students[j + 1].lastName)
+                            {
+                                Student temp = students[j];
+                                students[j] = students[j + 1];
+                                students[j + 1] = temp;
+                            }
                         }
                     }
-                }
 
-                for (int i = 0; i < studentAdder; i++)
-                {
-                    cout <<"\nStudent ID: " << students[i].StudentId;
-                    cout <<"\nFirst Name: " << students[i].firstName;
-                    cout <<"\nLast Name: " << students[i].lastName;
-                    cout <<"\nCourse: " << students[i].course;
-                    cout <<"\nGPA: " << students[i].GPA;
-                    cout <<"\n==========================================";
-                }
-                break;
-            }
-        case 2:
-            {
-                cout << "Viewing the list of Students through their GPA";
-
-                for (int i = 0; i < studentAdder - 1; i++)
-                {
-                    for(int j = 0; j < studentAdder - i - 1; j++)
+                    for (int i = 0; i < studentAdder; i++)
                     {
-                        if (students[j].StudentId > students[j + 1].StudentId)
+                        cout <<"\nStudent ID: " << students[i].StudentId;
+                        cout <<"\nFirst Name: " << students[i].firstName;
+                        cout <<"\nLast Name: " << students[i].lastName;
+                        cout <<"\nCourse: " << students[i].course;
+                        cout <<"\nGPA: " << students[i].GPA;
+                        cout <<"\n==========================================";
+                    }
+                    break;
+                }
+            case 2:
+                {
+                    cout << "Viewing the list of Students through their GPA";
+
+                    for (int i = 0; i < studentAdder - 1; i++)
+                    {
+                        for(int j = 0; j < studentAdder - i - 1; j++)
                         {
-                            Student temp = students[j];
-                            students[j] = students[j + 1];
-                            students[j + 1] = temp;
+                            if (students[j].StudentId > students[j + 1].StudentId)
+                            {
+                                Student temp = students[j];
+                                students[j] = students[j + 1];
+                                students[j + 1] = temp;
+                            }
                         }
                     }
-                }
 
-                for (int i = 0; i < studentAdder; i++)
-                {
-                    cout <<"\nStudent ID: " << students[i].StudentId;
-                    cout <<"\nFirst Name: " << students[i].firstName;
-                    cout <<"\nLast Name: " << students[i].lastName;
-                    cout <<"\nCourse: " << students[i].course;
-                    cout <<"\nGPA: " << students[i].GPA;
-                    cout <<"\n==========================================";
+                    for (int i = 0; i < studentAdder; i++)
+                    {
+                        cout <<"\nStudent ID: " << students[i].StudentId;
+                        cout <<"\nFirst Name: " << students[i].firstName;
+                        cout <<"\nLast Name: " << students[i].lastName;
+                        cout <<"\nCourse: " << students[i].course;
+                        cout <<"\nGPA: " << students[i].GPA;
+                        cout <<"\n==========================================";
+                    }
+                    break;
                 }
-                break;
-            }
-        case 3:
-            {
-                cout << "returning to menu";
-                break;
-            }
-        default:
-            {
-                cout << "Invalid input try again";
-                break;
+            case 3:
+                {
+                    cout << "returning to menu";
+                    break;
+                }
+            default:
+                {
+                    cout << "Invalid input try again";
+                    break;
+                }
             }
         }
+        while(choose != 3);
     }
 }
 
@@ -300,10 +304,12 @@ int main()
             case 3:
                 {
                     deleteStudent(students, studentAdder);
+                    studentAdder--;
                     break;
                 }
             case 4:
                 {
+
                     viewStudent(students, studentAdder);
                     break;
                 }
