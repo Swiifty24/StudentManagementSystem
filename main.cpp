@@ -95,7 +95,6 @@ void editStudent (Student students[], int studentAdder)
     system("cls");
 
     cout << "======EDIT A STUDENT======\n\n";
-
     cout << "----Edit A student----";
     cout << "\nEnter Student id: ";
     cin >> studentid;
@@ -106,10 +105,7 @@ void editStudent (Student students[], int studentAdder)
     cout << "There are no students\n";
     return;
     }
-    else if (students[studentAdder].StudentId == studentid)
-    {
-        cout << "you have entered thesame student";
-    }
+
     for (int i = 0; i < studentAdder; i++)
     {
         if (students[i].StudentId == studentid)
@@ -127,7 +123,6 @@ void editStudent (Student students[], int studentAdder)
             cin >> students[i].GPA;
             cout << "\n\n =====Student Has been updated=====";
             found = true;
-            break;
         }
     }
 
@@ -138,41 +133,43 @@ void deleteStudent(Student students[], int studentAdder)
     int studentid;
 
     system("cls");
-
-    cout << "\n=======Student Removal========\n";
-    cout << "Enter Student ID to search: ";
-    cin >> studentid;
-    bool found = false;
-
-     if (studentAdder == 0)
+    while (true)
     {
-        cout << "\n No available Records";
-        return;
+        cout << "\n=======Student Removal========\n";
+        cout << "Enter Student ID to search: ";
+        cin >> studentid;
+        bool found = false;
 
-    }
-
-    for (int i = 0; i < studentAdder; i++)
-    {
-        if (students[i].StudentId == studentid)
+        if (studentAdder == 0)
         {
-            displayRecords(students, studentAdder, studentid);
-            found = true;
+            cout << "\n No available Records";
+            return;
 
-            for (int j = i; j < studentAdder - 1; i++)
-            {
-                students[j] = students[j + 1];
-            }
-            cout << "Student has been deleted in the program";
-            studentAdder--;
-            break;
         }
-    }
 
-    if (!found)
-    {
-        cout << "Student has not been registered";
-    }
+        for (int i = 0; i < studentAdder; i++)
+        {
+            if (students[i].StudentId == studentid)
+            {
+                displayRecords(students, studentAdder, studentid);
+                found = true;
 
+                for (int j = i; j < studentAdder - 1; i++)
+                {
+                    students[j] = students[j + 1];
+                }
+                cout << "Student has been deleted in the program";
+                studentAdder--;
+                break;
+            }
+        }
+
+        if (!found)
+        {
+            cout << "Student has not been registered";
+        }
+        break;
+    }
 }
 
 void viewStudent (Student students[], int studentAdder)
