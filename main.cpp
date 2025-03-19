@@ -9,6 +9,7 @@ struct Student
    string firstName, lastName, course;
    float GPA;
 };
+
 void display_menu()
 {
     system("cls");
@@ -29,44 +30,39 @@ void addStudent (Student students[], int studentAdder)
     cout << "==Adding A student==\n";
     bool found = false;
 
-    cout << "====Enter Student Data====\n";
-    cout << "\nEnter Student id\n";
-    cin >> studentCheck.StudentId;
-
-    for (int i = 0; i < studentAdder; i++)
+     for (int i = 0; i < studentAdder; i++)
     {
         if (students[i].StudentId == studentCheck.StudentId)
         {
             cout << "The following student is already in the program";
             found = true;
-            break;
         }
     }
-    do
+
+    cout << "====Enter Student Data====\n";
+    cout << "\nEnter Student id\n";
+    cin.ignore();
+    cin >> studentCheck.StudentId;
+
+    if (studentAdder >= 100)
     {
-        if (studentAdder >= 100)
-        {
-            cout << "The number of students has been met. Unable to add more";
-        }
-        if(!found)
-        {
-            cout << "Enter Student's First Name\n";
-            cin >> students[studentAdder].firstName;
-            cout << "Enter Student's Last Name\n";
-            cin >> students[studentAdder].lastName;
-            cout << "Enter Student's Course\n";
-            cin >> students[studentAdder].course;
-            cout << "Enter Student's Previous GPA: ";
-            cin >> students[studentAdder].GPA;
+        cout << "The number of students has been met. Unable to add more";
+    }
+    if(!found)
+    {
+        cout << "Enter Student's First Name\n";
+        cin >> students[studentAdder].firstName;
+        cout << "Enter Student's Last Name\n";
+        cin >> students[studentAdder].lastName;
+        cout << "Enter Student's Course\n";
+        cin >> students[studentAdder].course;
+        cout << "Enter Student's Previous GPA: ";
+        cin >> students[studentAdder].GPA;
 
-            studentAdder++;
-            students[studentAdder] = studentCheck;
-            cout << "Student Added Successfully";
-        }
-        cout << "\nWould you like to add a new student? (y/n)";
-        cin >> choice;
-
-    }while ((choice == 'y' || choice == 'Y') && studentAdder < 100);
+        studentAdder++;
+        students[studentAdder] = studentCheck;
+        cout << "Student Added Successfully";
+    }
 }
 
 void displayRecords (Student students[], int studentAdder, int studentid)
@@ -99,39 +95,42 @@ void editStudent (Student students[], int studentAdder)
     system("cls");
 
     cout << "======EDIT A STUDENT======\n\n";
+
+    cout << "----Edit A student----";
+    cout << "\nEnter Student id: ";
+    cin >> studentid;
+    bool found = false;
+
     if (studentAdder == 0)
     {
-        cout << "There are no students\n";
-
+    cout << "There are no students\n";
+    return;
     }
-    else
+    else if (students[studentAdder].StudentId == studentid)
     {
-        cout << "----Edit A student----";
-        cout << "\nEnter Student id: ";
-        cin >> studentid;
-        bool found = false;
-
-        for (int i = 0; i < studentAdder; i++)
+        cout << "you have entered thesame student";
+    }
+    for (int i = 0; i < studentAdder; i++)
+    {
+        if (students[i].StudentId == studentid)
         {
-            if (students[i].StudentId == studentid)
-            {
-                displayRecords(students, studentid, studentAdder);
-                cout << "\nEnter new ID: ";
-                cin >> students[i].StudentId;
-                cout << "\nEnter First Name: ";
-                cin >> students[i].firstName;
-                cout << "\nEnter Last Name: ";
-                cin >> students[i].lastName;
-                cout << "\nEnter New Course: ";
-                cin >> students[i].course;
-                cout << "\nEnter New GPA: ";
-                cin >> students[i].GPA;
-                cout << "\n\n =====Student Has been updated=====";
-                found = true;
-                break;
-            }
+            displayRecords(students, studentid, studentAdder);
+            cout << "\nEnter new ID: ";
+            cin >> students[i].StudentId;
+            cout << "\nEnter First Name: ";
+            cin >> students[i].firstName;
+            cout << "\nEnter Last Name: ";
+            cin >> students[i].lastName;
+            cout << "\nEnter New Course: ";
+            cin >> students[i].course;
+            cout << "\nEnter New GPA: ";
+            cin >> students[i].GPA;
+            cout << "\n\n =====Student Has been updated=====";
+            found = true;
+            break;
         }
     }
+
 }
 
 void deleteStudent(Student students[], int studentAdder)
@@ -139,17 +138,18 @@ void deleteStudent(Student students[], int studentAdder)
     int studentid;
 
     system("cls");
-    if (studentAdder == 0)
-    {
-        cout << "\n No available Records";
-        return;
-
-    }
 
     cout << "\n=======Student Removal========\n";
     cout << "Enter Student ID to search: ";
     cin >> studentid;
     bool found = false;
+
+     if (studentAdder == 0)
+    {
+        cout << "\n No available Records";
+        return;
+
+    }
 
     for (int i = 0; i < studentAdder; i++)
     {
@@ -278,6 +278,8 @@ int main()
     int studentAdder = 0;
     int choice;
 
+    do
+    {
         display_menu();
         cin >> choice;
 
@@ -317,6 +319,8 @@ int main()
                     break;
                 }
         }
+    }
+    while(choice != 5);
     return 0;
 }
 
